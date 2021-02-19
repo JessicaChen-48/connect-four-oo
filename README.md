@@ -1,0 +1,1 @@
+This program is a connect four game written in object orientation.

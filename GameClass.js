@@ -8,11 +8,13 @@ class Game {
         this.width = width;
         this.board = [];
         this.currPlayer = 1;
+        this.makeBoard();
+        this.makeHtmlBoard();
     }
 
     makeBoard() {
         for (let y = 0; y < this.height; y++) {
-          board.push(Array.from({ length: this.width }));
+          this.board.push(Array.from({ length: this.width }));
         }
     }
 
@@ -22,7 +24,7 @@ class Game {
         // make column tops (clickable area for adding a piece to that column)
         const top = document.createElement('tr');
         top.setAttribute('id', 'column-top');
-        top.addEventListener('click', this.handleClick);
+        top.addEventListener('click', this.handleClick.bind(this));
       
         for (let x = 0; x < this.width; x++) {
           const headCell = document.createElement('td');
@@ -98,18 +100,23 @@ class Game {
     }
 
     checkForWin() {
+
+        let _this = this
+
         function _win(cells) {
           // Check four cells to see if they're all color of current player
           //  - cells: list of four (y, x) cells
           //  - returns true if all are legal coordinates & all match currPlayer
+
+          //_win = _win.bind(this)
       
           return cells.every(
-            ([y, x]) =>
+              ([y, x]) =>
               y >= 0 &&
-              y < this.height &&
+              y < _this.height &&
               x >= 0 &&
-              x < this.width &&
-              this.board[y][x] === this.currPlayer
+              x < _this.width &&
+              _this.board[y][x] === _this.currPlayer
           );
         }
       
@@ -132,3 +139,7 @@ class Game {
 
 
 }
+
+
+
+new Game(6, 7);

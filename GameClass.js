@@ -48,6 +48,9 @@ class Game {
         }
     }
 
+    // only fire off handClick only if submit is hit
+ 
+      //then run this code ->
     handleClick(evt) {
         // get x from ID of clicked cell
         const x = +evt.target.id;
@@ -75,6 +78,7 @@ class Game {
         // switch players
         this.currPlayer = this.currPlayer === 1 ? 2 : 1;
     }
+  
 
     findSpotForCol(x) {
         for (let y = this.height - 1; y >= 0; y--) {
@@ -136,10 +140,16 @@ class Game {
           }
         }
       }
-
-
 }
 
+const form = document.querySelector("#generate-players");
+
+form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    new Game(6, 7);
+});
 
 
-new Game(6, 7);
+
+
+

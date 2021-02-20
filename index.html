@@ -1,15 +1,30 @@
 <!doctype html>
+
 <head>
   <title>Connect 4</title>
   <link href="connect4.css" rel="stylesheet">
 </head>
+
 <body>
 
-<div id="game">
-  <table id="board"></table>
-</div>
+  <form id="generate-players">
+    <label for="play1"> Player 1
+      <input id="player1" for="play1" type="text" placeholder="Player1">
+    </label>
+    <label for="play2"> Player 2
+      <input id="player2" for="play2" type="text" placeholder="Player2">
+    </label>
 
-<script src="GameClass.js"></script>
+    <button type="submit">Generate Game!</button>
+  </form>
+
+  <div id="game">
+    <table id="board"></table>
+  </div>
+
+  <!-- <script src="clickHandler.js"></script> -->
+  <script src="GameClass.js"></script>
 
 </body>
+
 </html>

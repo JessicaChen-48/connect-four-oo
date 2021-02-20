@@ -3,11 +3,14 @@
 
 class Game {
 
-    constructor(height, width) {
+    constructor(height, width, player1, player2) {
         this.height = height;
         this.width = width;
         this.board = [];
-        this.currPlayer = 1;
+        //this.currPlayer = 1;
+        this.currPlayer = player1;
+        this.player1 = player1;
+        this.player2 = player2;
         this.makeBoard();
         this.makeHtmlBoard();
     }
@@ -67,7 +70,7 @@ class Game {
         
         // check for win
         if (this.checkForWin()) {
-          return this.endGame(`Player ${this.currPlayer} won!`);
+          return this.endGame(`Player ${this.currPlayer.color} won!`);
         }
         
         // check for tie
@@ -76,7 +79,8 @@ class Game {
         }
           
         // switch players
-        this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+        //this.currPlayer = this.currPlayer === 1 ? 2 : 1;
+        this.currPlayer = this.currPlayer === this.player1 ? this.player2 : this.player1;
     }
   
 
@@ -92,8 +96,10 @@ class Game {
     placeInTable(y, x) {
         const piece = document.createElement('div');
         piece.classList.add('piece');
-        piece.classList.add(`p${this.currPlayer}`);
         piece.style.top = -50 * (y + 2);
+
+        //piece.style.backgroundColor = this.currPlayer === 1 ? this.player1.color : this.player2.color;
+        piece.style.backgroundColor = this.currPlayer === this.player1 ? this.player1.color : this.player2.color;
       
         const spot = document.getElementById(`${y}-${x}`);
         spot.append(piece);
@@ -142,11 +148,25 @@ class Game {
       }
 }
 
+class Player {
+  constructor(color) {
+    this.color = color;
+  }
+}
+
+
 const form = document.querySelector("#generate-players");
+
+const player1FormValue = document.querySelector("#player1")
+const player2FormValue = document.querySelector("#player2")
 
 form.addEventListener("submit", function (e) {
     e.preventDefault();
-    new Game(6, 7);
+
+    let player1 = new Player(player1FormValue.value)
+    let player2 = new Player(player2FormValue.value)
+
+    new Game(6, 7, player1, player2);
 });
 
 
